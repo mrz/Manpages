@@ -109,7 +109,7 @@ open class WelcomeFragment : Fragment() {
     }
 
     private fun generateDownloadURL(distribution: String, version: String): Uri {
-        val uri = mRealm?.where(javaClass<Archive>())?.equalTo("project", distribution)?.equalTo(
+        val uri = mProjects?.where()?.equalTo("project", distribution)?.equalTo(
                 "version", version)?.findFirst()
 
         return Uri.parse(uri?.getURI())
