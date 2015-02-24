@@ -9,8 +9,7 @@
             android:name=".MainApp"
             android:theme="@style/AppTheme">
         <activity android:name=".WelcomeActivity"
-                  android:configChanges="orientation|screenSize"
-                  android:label="WelcomeActivity">
+                  android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
