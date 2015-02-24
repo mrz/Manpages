@@ -89,21 +89,18 @@ open class WelcomeFragment : Fragment() {
                 })
 
         mConfirmButton?.setOnClickListener {
-            object : View.OnClickListener {
-                override fun onClick(v: View) {
-                    val distribution = mProjectSpinner?.getSelectedItem() as String
-                    val version = mVersionSpinner?.getSelectedItem() as String
+            val distribution = mProjectSpinner?.getSelectedItem() as String
+            val version = mVersionSpinner?.getSelectedItem() as String
 
-                    val downloadURL: Uri = generateDownloadURL(distribution, version)
+            val downloadURL: Uri = generateDownloadURL(distribution, version)
 
-                    Toast.makeText(getActivity(),
-                            "Download URL: ${downloadURL}", Toast.LENGTH_LONG).show()
+            Toast.makeText(getActivity(),
+                    "Download URL: ${downloadURL}", Toast.LENGTH_LONG).show()
 
-                    //EventBus.getDefault().post(StartDownloadEvent(downloadURL))
-                }
-            }
+            //EventBus.getDefault().post(StartDownloadEvent(downloadURL))
         }
     }
+
 
     private fun populateAdapter(adapter: SpinnerAdapter, items: RealmResults<Archive>?) {
         adapter.clear()
