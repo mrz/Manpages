@@ -8,13 +8,21 @@ public class Archive extends RealmObject {
 
     private String version;
 
-    private String URI;
+    private String uri;
 
     private String filename;
 
     private String path;
 
     private boolean downloaded;
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
     public String getProject() {
         return project;
@@ -30,14 +38,6 @@ public class Archive extends RealmObject {
 
     public void setVersion(String version) {
         this.version = version;
-    }
-
-    public String getURI() {
-        return URI;
-    }
-
-    public void setURI(String URI) {
-        this.URI = URI;
     }
 
     public String getFilename() {

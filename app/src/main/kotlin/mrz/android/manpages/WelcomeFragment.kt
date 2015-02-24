@@ -112,6 +112,6 @@ open class WelcomeFragment : Fragment() {
         val uri = mProjects?.where()?.equalTo("project", distribution)?.equalTo(
                 "version", version)?.findFirst()
 
-        return Uri.parse(uri?.getURI())
+        return Uri.parse(uri?.getUri())
     }
 }
