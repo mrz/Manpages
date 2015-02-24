@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="distributions_array">
+        <item>Linux</item>
+        <item>FreeBSD</item>
+    </string-array>
+    <string-array name="linux_versions_array">
+        <item>3.50</item>
+        <item>3.51</item>
+        <item>3.52</item>
+        <item>3.53</item>
+        <item>3.54</item>
+        <item>3.55</item>
+        <item>3.56</item>
+        <item>3.57</item>
+        <item>3.58</item>
+        <item>3.59</item>
+        <item>3.60</item>
+        <item>3.61</item>
+        <item>3.62</item>
+        <item>3.63</item>
+        <item>3.64</item>
+        <item>3.65</item>
+        <item>3.66</item>
+        <item>3.67</item>
+        <item>3.68</item>
+        <item>3.69</item>
+        <item>3.60</item>
+        <item>3.70</item>
+        <item>3.71</item>
+        <item>3.72</item>
+        <item>3.73</item>
+        <item>3.74</item>
+        <item>3.75</item>
+        <item>3.76</item>
+        <item>3.77</item>
+        <item>3.78</item>
+        <item>3.79</item>
+    </string-array>
+    <string-array name="freebsd_versions_array">
+        <item>8.0-RELEASE</item>
+        <item>8.0-RELEASE and Ports</item>
+        <item>8.1-RELEASE</item>
+        <item>8.1-RELEASE and Ports</item>
+        <item>8.2-RELEASE</item>
+        <item>8.2-RELEASE and Ports</item>
+        <item>8.3-RELEASE</item>
+        <item>8.3-RELEASE and Ports</item>
+        <item>8.4-RELEASE</item>
+        <item>8.4-RELEASE and Ports</item>
+        <item>8.4-stable</item>
+        <item>9.0-RELEASE</item>
+        <item>9.0-RELEASE and Ports</item>
+        <item>9.1-RELEASE</item>
+        <item>9.1-RELEASE and Ports</item>
+        <item>9.2-RELEASE</item>
+        <item>9.2-RELEASE and Ports</item>
+        <item>9.3-RELEASE</item>
+        <item>9.3-RELEASE and Ports</item>
+        <item>9.3-stable</item>
+        <item>10.0-RELEASE</item>
+        <item>10.0-stable</item>
+        <item>10.1-RELEASE</item>
+        <item>10.1-RELEASE and Ports</item>
+        <item>10.1-stable</item>
+        <item>11-current</item>
+    </string-array>
+</resources>
