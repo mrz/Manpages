@@ -81,9 +81,7 @@ open class WelcomeFragment : Fragment() {
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<out Adapter>?, view: View?,
                             position: Int, id: Long) {
-                        Toast.makeText(getActivity(),
-                                "Selected ${parent?.getItemAtPosition(position)}",
-                                Toast.LENGTH_LONG).show()
+                        mConfirmButton?.setVisibility(View.VISIBLE)
                     }
 
                     override fun onNothingSelected(parent: AdapterView<out Adapter>?) {

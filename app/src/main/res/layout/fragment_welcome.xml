@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:text="@android:string/ok"
             android:layout_below="@id/version_spinner"
+            android:visibility="invisible"
             android:id="@+id/confirm_button"/>
 
 </RelativeLayout>
