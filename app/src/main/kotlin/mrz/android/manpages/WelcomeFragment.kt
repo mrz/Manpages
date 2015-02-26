@@ -22,15 +22,15 @@ open class WelcomeFragment : Fragment() {
         Realm.getInstance(getActivity().getApplicationContext())
     }
 
-    private val mProjectSpinner: Spinner? by Delegates.lazy {
+    private val projectSpinner: Spinner? by Delegates.lazy {
         getView().findViewById(R.id.project_spinner) as Spinner?
     }
 
-    private val mVersionSpinner: Spinner? by Delegates.lazy {
+    private val versionSpinner: Spinner? by Delegates.lazy {
         getView().findViewById(R.id.version_spinner) as Spinner?
     }
 
-    private val mConfirmButton: Button? by Delegates.lazy {
+    private val confirmButton: Button? by Delegates.lazy {
         getView().findViewById(R.id.confirm_button) as Button?
     }
 
@@ -53,15 +53,15 @@ open class WelcomeFragment : Fragment() {
 
         val versionAdapter: SpinnerAdapter = SpinnerAdapter(getActivity())
 
-        mProjectSpinner?.setAdapter(projectAdapter)
-        mVersionSpinner?.setAdapter(versionAdapter)
+        projectSpinner?.setAdapter(projectAdapter)
+        versionSpinner?.setAdapter(versionAdapter)
 
         // Avoid triggering an onItemSelected when setting the adapter
-        listOf(mProjectSpinner, mVersionSpinner) map { s ->
+        listOf(projectSpinner, versionSpinner) map { s ->
             s?.setSelection(0, false)
         }
 
-        mProjectSpinner?.setOnItemSelectedListener(
+        projectSpinner?.setOnItemSelectedListener(
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<out Adapter>?, view: View?,
                             position: Int, id: Long) {
@@ -77,20 +77,20 @@ open class WelcomeFragment : Fragment() {
                     }
                 })
 
-        mVersionSpinner?.setOnItemSelectedListener(
+        versionSpinner?.setOnItemSelectedListener(
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<out Adapter>?, view: View?,
                             position: Int, id: Long) {
-                        mConfirmButton?.setVisibility(View.VISIBLE)
+                        confirmButton?.setVisibility(View.VISIBLE)
                     }
 
                     override fun onNothingSelected(parent: AdapterView<out Adapter>?) {
                     }
                 })
 
-        mConfirmButton?.setOnClickListener {
-            val distribution = mProjectSpinner?.getSelectedItem() as String
-            val version = mVersionSpinner?.getSelectedItem() as String
+        confirmButton?.setOnClickListener {
+            val distribution = projectSpinner?.getSelectedItem() as String
+            val version = versionSpinner?.getSelectedItem() as String
 
             val downloadURL: Uri = generateDownloadURL(distribution, version)
 
