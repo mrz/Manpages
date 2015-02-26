@@ -2,7 +2,7 @@ package mrz.android.manpages
 
 import android.support.v7.app.ActionBarActivity
 import android.os.Bundle
-import mrz.android.manpages.event.StartDownloadEvent
+import mrz.android.manpages.events.StartDownloadEvent
 import android.content.Context
 import android.app.DownloadManager
 import android.app.DownloadManager.Request

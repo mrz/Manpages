@@ -97,7 +97,7 @@ open class WelcomeFragment : Fragment() {
             Toast.makeText(getActivity(),
                     "Download URL: ${downloadURL}", Toast.LENGTH_LONG).show()
 
-            //EventBus.getDefault().post(StartDownloadEvent(downloadURL))
+            EventBus.getDefault().post(StartDownloadEvent(downloadURL, archiveModel.getArchive(distribution, version)!!.getFilename()))
         }
     }
 
