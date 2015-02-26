@@ -35,5 +35,11 @@
             android:layout_below="@id/version_spinner"
             android:visibility="invisible"
             android:id="@+id/confirm_button"/>
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_below="@+id/confirm_button" android:layout_centerHorizontal="true"
+            android:visibility="invisible"/>
 
 </RelativeLayout>

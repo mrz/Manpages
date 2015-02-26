@@ -36,6 +36,8 @@ open class WelcomeFragment : Fragment() {
 
     private val mProjects: RealmResults<Archive>? by Delegates.lazy {
         mRealm?.where(javaClass<Archive>())?.findAll()
+    private val progressBar: ProgressBar? by Delegates.lazy {
+        getView().findViewById(R.id.progressBar) as ProgressBar?
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -94,8 +96,7 @@ open class WelcomeFragment : Fragment() {
 
             val downloadURL: Uri = generateDownloadURL(distribution, version)
 
-            Toast.makeText(getActivity(),
-                    "Download URL: ${downloadURL}", Toast.LENGTH_LONG).show()
+            progressBar?.setVisibility(View.VISIBLE)
 
             EventBus.getDefault().post(StartDownloadEvent(downloadURL, archiveModel.getArchive(distribution, version)!!.getFilename()))
         }
