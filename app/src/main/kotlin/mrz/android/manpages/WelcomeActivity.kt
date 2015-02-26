@@ -18,7 +18,7 @@ import io.realm.RealmObject
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import java.io.InputStreamReader
-import mrz.android.manpages.model.Archive
+import mrz.android.manpages.entities.Archive
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 import java.io.FileInputStream

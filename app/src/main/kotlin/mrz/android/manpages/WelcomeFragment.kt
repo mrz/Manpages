@@ -12,14 +12,16 @@ import kotlin.properties.Delegates
 import android.widget.Toast
 import android.widget.Button
 import android.net.Uri
-import io.realm.Realm
-import mrz.android.manpages.model.Archive
-import io.realm.RealmResults
+import mrz.android.manpages.entities.Archive
+import mrz.android.manpages.model.ArchiveModel
+import de.greenrobot.event.EventBus
+import mrz.android.manpages.events.StartDownloadEvent
+import android.widget.ProgressBar
 
 open class WelcomeFragment : Fragment() {
 
-    private val mRealm: Realm? by Delegates.lazy {
-        Realm.getInstance(getActivity().getApplicationContext())
+    private val archiveModel: ArchiveModel by Delegates.lazy {
+        ArchiveModel(getActivity().getApplicationContext())
     }
 
     private val projectSpinner: Spinner? by Delegates.lazy {
@@ -34,8 +36,6 @@ open class WelcomeFragment : Fragment() {
         getView().findViewById(R.id.confirm_button) as Button?
     }
 
-    private val mProjects: RealmResults<Archive>? by Delegates.lazy {
-        mRealm?.where(javaClass<Archive>())?.findAll()
     private val progressBar: ProgressBar? by Delegates.lazy {
         getView().findViewById(R.id.progressBar) as ProgressBar?
     }
@@ -67,12 +67,9 @@ open class WelcomeFragment : Fragment() {
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<out Adapter>?, view: View?,
                             position: Int, id: Long) {
-                        when (parent?.getItemAtPosition(position) as CharSequence) {
-                            "Linux" -> populateAdapter(versionAdapter,
-                                    mProjects?.where()?.equalTo("project", "Linux")?.findAll())
-                            "FreeBSD" -> populateAdapter(versionAdapter,
-                                    mProjects?.where()?.equalTo("project", "FreeBSD")?.findAll())
-                        }
+                        populateAdapter(versionAdapter,
+                                archiveModel.getArchivesByProject(
+                                        parent?.getItemAtPosition(position) as String))
                     }
 
                     override fun onNothingSelected(parent: AdapterView<out Adapter>?) {
@@ -102,16 +99,14 @@ open class WelcomeFragment : Fragment() {
         }
     }
 
-
-    private fun populateAdapter(adapter: SpinnerAdapter, items: RealmResults<Archive>?) {
+    private fun populateAdapter(adapter: SpinnerAdapter, items: List<Archive>?) {
         adapter.clear()
         adapter.setItems(items?.map { it -> it.getVersion() })
         adapter.notifyDataSetChanged()
     }
 
     private fun generateDownloadURL(distribution: String, version: String): Uri {
-        val uri = mProjects?.where()?.equalTo("project", distribution)?.equalTo(
-                "version", version)?.findFirst()
+        val uri = archiveModel.getArchive(distribution, version)
 
         return Uri.parse(uri?.getUri())
     }
