@@ -23,10 +23,10 @@ public class DownloadReceiver(val context: Context, val downloadId: Long) : Broa
 
             val c = mDownloadManager.query(query);
             if (c.moveToFirst()) {
-                val columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                val columnStatus = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
                 val columnReason = c.getColumnIndex(DownloadManager.COLUMN_REASON)
 
-                when (c.getInt(columnIndex)) {
+                when (c.getInt(columnStatus)) {
                     DownloadManager.STATUS_SUCCESSFUL -> {
                         val file: ParcelFileDescriptor = mDownloadManager.openDownloadedFile(
                                 downloadId)
