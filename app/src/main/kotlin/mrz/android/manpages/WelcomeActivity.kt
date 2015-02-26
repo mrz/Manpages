@@ -22,10 +22,13 @@ import mrz.android.manpages.entities.Archive
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 import java.io.FileInputStream
+import de.greenrobot.event.EventBus
+import timber.log.Timber
 
 open class WelcomeActivity : ActionBarActivity() {
+    private var downloadReceiver: DownloadReceiver? = null
 
-    private var mDownloadReceiver: DownloadReceiver? = null
+    private var downloadReceiverRegistered: Boolean = false
 
     private val mRealm: Realm? by Delegates.lazy {
         Realm.getInstance(this)
@@ -45,23 +48,31 @@ open class WelcomeActivity : ActionBarActivity() {
 
         val fragment: WelcomeFragment = WelcomeFragment()
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit()
+
+        EventBus.getDefault().register(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        //unregisterReceiver(mDownloadReceiver)
+
+        EventBus.getDefault().unregister(this)
+
+        if(downloadReceiverRegistered)
+            unregisterReceiver(downloadReceiver)
     }
 
     public fun onEvent(event: StartDownloadEvent) {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val request = Request(event.uri)
-        request.setDestinationInExternalFilesDir(getApplicationContext(), null,
-                event.uri.getLastPathSegment())
+        request.setDestinationInExternalFilesDir(getApplicationContext(), null, event.filename)
         val downloadId = downloadManager.enqueue(request)
 
-        mDownloadReceiver = DownloadReceiver(getApplicationContext(), downloadId)
+        Timber.i("${event.uri} download enqueued - destination ${event.filename}")
 
-        registerReceiver(mDownloadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        downloadReceiver = DownloadReceiver(getApplicationContext(), downloadId)
+
+        registerReceiver(downloadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        downloadReceiverRegistered = true
     }
 
     private fun populateDatabase() {
