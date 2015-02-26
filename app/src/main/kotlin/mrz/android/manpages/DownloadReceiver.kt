@@ -7,6 +7,7 @@ import android.app.DownloadManager
 import android.app.DownloadManager.Query
 import android.os.ParcelFileDescriptor
 import java.io.FileInputStream
+import timber.log.Timber
 
 public class DownloadReceiver(val context: Context, val downloadId: Long) : BroadcastReceiver() {
     val mDownloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -23,14 +24,22 @@ public class DownloadReceiver(val context: Context, val downloadId: Long) : Broa
             val c = mDownloadManager.query(query);
             if (c.moveToFirst()) {
                 val columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-                    // val uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                    val file: ParcelFileDescriptor = mDownloadManager.openDownloadedFile(downloadId)
-                    val fileInputStream: FileInputStream = ParcelFileDescriptor.AutoCloseInputStream(file)
+                val columnReason = c.getColumnIndex(DownloadManager.COLUMN_REASON)
+
+                when (c.getInt(columnIndex)) {
+                    DownloadManager.STATUS_SUCCESSFUL -> {
+                        val file: ParcelFileDescriptor = mDownloadManager.openDownloadedFile(
+                                downloadId)
+                        val fileInputStream: FileInputStream = ParcelFileDescriptor.AutoCloseInputStream(
+                                file)
+                        Timber.i("Downloaded ${file}")
+                    }
+                    DownloadManager.STATUS_FAILED -> Timber.e("Download ${downloadId} failed: ${c.getString(columnReason)}")
+
+                    DownloadManager.STATUS_RUNNING -> Timber.i("Download ${downloadId} started")
                 }
             }
         }
-        throw UnsupportedOperationException()
     }
 }
 
