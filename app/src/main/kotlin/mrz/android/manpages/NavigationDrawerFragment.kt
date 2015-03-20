@@ -249,7 +249,7 @@ public class NavigationDrawerFragment : Fragment() {
         public fun onNavigationDrawerItemSelected(position: Int)
     }
 
-    class object {
+    companion object {
 
         /**
          * Remember the position of the selected item.
