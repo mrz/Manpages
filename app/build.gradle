@@ -6,7 +6,7 @@ def versionMinor = 1
 def versionPatch = 0
 def versionBuild = 0
 
-// def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
 
 android {
@@ -22,7 +22,7 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
-        // buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
     }
 
@@ -32,11 +32,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-          minifyEnabled false
+            minifyEnabled false
         }
     }
 
