@@ -8,7 +8,7 @@
     { "project"    : "Linux",
       "version"    : "3.71",
       "uri"        : "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.71.tar.gz",
-      "filename"   : "man-pages-3.70.tar.gz",
+      "filename"   : "man-pages-3.71.tar.gz",
       "path"       : "",
       "downloaded" : false },
     { "project"    : "Linux",
