@@ -29,23 +29,13 @@ public class MainActivity : ActionBarActivity(), NavigationDrawerFragment.Naviga
         mTitle = getTitle()
 
         // Set up the drawer.
-        mNavigationDrawerFragment!!.setUp(R.id.navigation_drawer,
-                findViewById(R.id.drawer_layout) as DrawerLayout)
+        mNavigationDrawerFragment!!.setUp(R.id.navigation_drawer, findViewById(R.id.drawer_layout) as DrawerLayout)
     }
 
     override fun onNavigationDrawerItemSelected(position: Int) {
         // update the main content by replacing fragments
         val fragmentManager = getSupportFragmentManager()
-        fragmentManager.beginTransaction().replace(R.id.container,
-                MainFragment.newInstance(position + 1)).commit()
-    }
-
-    public fun onSectionAttached(number: Int) {
-        when (number) {
-            1 -> mTitle = getString(R.string.title_section1)
-            2 -> mTitle = getString(R.string.title_section2)
-            3 -> mTitle = getString(R.string.title_section3)
-        }
+        fragmentManager.beginTransaction().replace(R.id.container, MainFragment()).commit()
     }
 
     public fun restoreActionBar() {

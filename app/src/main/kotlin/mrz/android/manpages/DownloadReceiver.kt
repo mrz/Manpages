@@ -8,6 +8,8 @@ import android.app.DownloadManager.Query
 import android.os.ParcelFileDescriptor
 import java.io.FileInputStream
 import timber.log.Timber
+import de.greenrobot.event.EventBus
+import mrz.android.manpages.events.FileDownloadedEvent
 
 public class DownloadReceiver(val context: Context, val downloadId: Long) : BroadcastReceiver() {
     val mDownloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -30,9 +32,8 @@ public class DownloadReceiver(val context: Context, val downloadId: Long) : Broa
                     DownloadManager.STATUS_SUCCESSFUL -> {
                         val file: ParcelFileDescriptor = mDownloadManager.openDownloadedFile(
                                 downloadId)
-                        val fileInputStream: FileInputStream = ParcelFileDescriptor.AutoCloseInputStream(
-                                file)
                         Timber.i("Downloaded ${file}")
+                        EventBus.getDefault().post(FileDownloadedEvent(file))
                     }
                     DownloadManager.STATUS_FAILED -> Timber.e("Download ${downloadId} failed: ${c.getString(columnReason)}")
 

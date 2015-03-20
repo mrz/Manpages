@@ -6,8 +6,14 @@ import android.view.ViewGroup
 import android.os.Bundle
 import android.view.View
 import android.app.Activity
+import android.widget.ProgressBar
+import kotlin.properties.Delegates
 
 public class MainFragment : Fragment() {
+
+    private val progressBar: ProgressBar? by Delegates.lazy {
+        getView().findViewById(R.id.progressBar) as ProgressBar?
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View {
@@ -15,29 +21,9 @@ public class MainFragment : Fragment() {
         return rootView
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        (activity as MainActivity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER))
-    }
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    class object {
-
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private val ARG_SECTION_NUMBER = "section_number"
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public fun newInstance(sectionNumber: Int): MainFragment {
-            val fragment = MainFragment()
-            val args = Bundle()
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber)
-            fragment.setArguments(args)
-            return fragment
-        }
+        progressBar?.setVisibility(View.VISIBLE)
     }
 }

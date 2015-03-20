@@ -1,29 +1,25 @@
 package mrz.android.manpages
 
-import android.support.v7.app.ActionBarActivity
-import android.os.Bundle
-import mrz.android.manpages.events.StartDownloadEvent
-import android.content.Context
 import android.app.DownloadManager
 import android.app.DownloadManager.Request
+import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
-import kotlin.properties.Delegates
-import io.realm.Realm
+import android.os.Bundle
 import android.preference.PreferenceManager
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.ExclusionStrategy
-import com.google.gson.FieldAttributes
-import io.realm.RealmObject
-import com.google.gson.JsonElement
-import com.google.gson.JsonParser
-import java.io.InputStreamReader
-import mrz.android.manpages.entities.Archive
+import android.support.v7.app.ActionBarActivity
+import com.google.gson.*
 import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
-import java.io.FileInputStream
 import de.greenrobot.event.EventBus
+import io.realm.Realm
+import io.realm.RealmObject
+import mrz.android.manpages.entities.Archive
+import mrz.android.manpages.events.FileDownloadedEvent
+import mrz.android.manpages.events.StartDownloadEvent
 import timber.log.Timber
+import java.io.InputStreamReader
+import java.lang.reflect.Type
+import kotlin.properties.Delegates
 
 open class WelcomeActivity : ActionBarActivity() {
     private var downloadReceiver: DownloadReceiver? = null
@@ -57,7 +53,7 @@ open class WelcomeActivity : ActionBarActivity() {
 
         EventBus.getDefault().unregister(this)
 
-        if(downloadReceiverRegistered)
+        if (downloadReceiverRegistered == true)
             unregisterReceiver(downloadReceiver)
     }
 
@@ -75,6 +71,13 @@ open class WelcomeActivity : ActionBarActivity() {
         downloadReceiverRegistered = true
     }
 
+    public fun onEvent(event: FileDownloadedEvent) {
+        var intent = Intent(getApplicationContext(), javaClass<MainActivity>())
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
+    }
+
     private fun populateDatabase() {
         val stream = getAssets().open("archives.json")
         // Note there is a bug in GSON 2.3.1 that can cause it to StackOverflow when working with RealmObjects.
@@ -86,7 +89,7 @@ open class WelcomeActivity : ActionBarActivity() {
             }
 
             override fun shouldSkipField(f: FieldAttributes?): Boolean {
-                return f?.getDeclaringClass().equals(javaClass<RealmObject>())
+                return f?.getDeclaringClass()!!.equals(javaClass<RealmObject>())
             }
 
         }).create()

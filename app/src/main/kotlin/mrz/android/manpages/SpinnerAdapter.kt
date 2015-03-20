@@ -51,7 +51,7 @@ public open class SpinnerAdapter(
     private fun populateView(position: Int, view: View?): View? {
         var viewHolder = view?.getTag() as ViewHolder? ?: ViewHolder(view?.findViewById(android.R.id.text1) as TextView?)
 
-        viewHolder?.textView?.setText(mItems?.get(position))
+        viewHolder.textView?.setText(mItems?.get(position))
 
         return view
     }
