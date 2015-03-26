@@ -60,7 +60,7 @@ dependencies {
 
     compile 'de.greenrobot:eventbus:2.4.0'
 
-    compile 'io.realm:realm-android:0.79.1'
+    compile 'io.realm:realm-android:0.80.0'
     compile 'com.google.code.gson:gson:2.3.1'
 
     compile 'com.jakewharton.timber:timber:2.5.0'
