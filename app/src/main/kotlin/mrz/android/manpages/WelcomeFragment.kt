@@ -11,6 +11,9 @@ import de.greenrobot.event.EventBus
 import mrz.android.manpages.entities.Archive
 import mrz.android.manpages.events.StartDownloadEvent
 import mrz.android.manpages.model.ArchiveModel
+import rx.android.view.OnClickEvent
+import rx.android.view.ViewObservable
+import rx.functions.Action1
 import kotlin.properties.Delegates
 
 open class WelcomeFragment : Fragment() {
@@ -50,6 +53,8 @@ open class WelcomeFragment : Fragment() {
 
         val versionAdapter: SpinnerAdapter = SpinnerAdapter(getActivity())
 
+        val confirmButtonObservable = ViewObservable.clicks(confirmButton, true)
+
         projectSpinner?.setAdapter(projectAdapter)
         versionSpinner?.setAdapter(versionAdapter)
 
@@ -82,17 +87,19 @@ open class WelcomeFragment : Fragment() {
                     }
                 })
 
-        confirmButton?.setOnClickListener {
-            val distribution = projectSpinner?.getSelectedItem() as String
-            val version = versionSpinner?.getSelectedItem() as String
+        confirmButtonObservable.subscribe(object : Action1<OnClickEvent> {
+            override fun call(t1: OnClickEvent?) {
+                val distribution = projectSpinner?.getSelectedItem() as String
+                val version = versionSpinner?.getSelectedItem() as String
 
-            val downloadURL: Uri = generateDownloadURL(distribution, version)
+                val downloadURL: Uri = generateDownloadURL(distribution, version)
 
-            progressBar?.setVisibility(View.VISIBLE)
+                progressBar?.setVisibility(View.VISIBLE)
 
-            EventBus.getDefault().post(StartDownloadEvent(downloadURL,
-                    archiveModel.getArchive(distribution, version)!!.getFilename()))
-        }
+                EventBus.getDefault().post(StartDownloadEvent(downloadURL,
+                        archiveModel.getArchive(distribution, version)!!.getFilename()))
+            }
+        })
     }
 
     private fun populateAdapter(adapter: SpinnerAdapter, items: List<Archive>?) {
