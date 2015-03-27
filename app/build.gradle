@@ -58,6 +58,8 @@ dependencies {
 
     compile 'org.jetbrains.kotlin:kotlin-stdlib:0.11.91'
 
+    compile 'io.reactivex:rxandroid:0.24.0'
+
     compile 'de.greenrobot:eventbus:2.4.0'
 
     compile 'io.realm:realm-android:0.80.0'
