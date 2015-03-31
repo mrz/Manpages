@@ -8,35 +8,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-public class RecyclerViewFragment(val layoutId: Int, val listId: Int = android.R.id.list): Fragment() {
+public open class RecyclerViewFragment(val layoutId: Int, val listId: Int = android.R.id.list): Fragment() {
 
-    var mAdapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>? = null
-    var mList : RecyclerView? = null
+    private var adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>? = null
+    protected var list: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layoutId, container, false)
 
-        mList = view.findViewById(listId) as RecyclerView?
+        list = view.findViewById(listId) as RecyclerView?
 
-        mList?.getItemAnimator()?.setAddDuration(1000);
-        mList?.getItemAnimator()?.setChangeDuration(1000);
-        mList?.getItemAnimator()?.setMoveDuration(1000);
-        mList?.getItemAnimator()?.setRemoveDuration(1000);
+        list?.getItemAnimator()?.setAddDuration(1000);
+        list?.getItemAnimator()?.setChangeDuration(1000);
+        list?.getItemAnimator()?.setMoveDuration(1000);
+        list?.getItemAnimator()?.setRemoveDuration(1000);
 
         return view
     }
 
     fun setListAdapter(adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>) {
-        mAdapter = adapter
-        mList?.setAdapter(mAdapter)
+        this.adapter = adapter
+        list?.setAdapter(adapter)
     }
 
     fun setLayoutManager(layoutManager: RecyclerView.LayoutManager) {
-        mList?.setLayoutManager(layoutManager)
+        list?.setLayoutManager(layoutManager)
     }
 
     fun setItemDecoration(itemDecoration: RecyclerView.ItemDecoration) {
-        mList?.addItemDecoration(itemDecoration)
+        list?.addItemDecoration(itemDecoration)
     }
 }
 

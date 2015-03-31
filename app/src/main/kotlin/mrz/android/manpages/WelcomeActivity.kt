@@ -37,13 +37,13 @@ open class WelcomeActivity : ActionBarActivity() {
 
         if (!PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean(
                 "database_populated", false)) {
-            populateDatabase()
+            //populateDatabase()
         } else {
             // Navigate to main activity
         }
 
         val fragment: WelcomeFragment = WelcomeFragment()
-        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit()
+        getFragmentManager().beginTransaction().add(R.id.container, fragment).commit()
 
         EventBus.getDefault().register(this)
     }
