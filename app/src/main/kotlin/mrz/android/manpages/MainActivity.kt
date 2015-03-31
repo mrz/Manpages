@@ -1,11 +1,11 @@
 package mrz.android.manpages
 
-import android.support.v7.app.ActionBarActivity
-import android.support.v7.app.ActionBar
 import android.os.Bundle
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBar
+import android.support.v7.app.ActionBarActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.support.v4.widget.DrawerLayout
 
 
 public class MainActivity : ActionBarActivity(), NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -29,7 +29,8 @@ public class MainActivity : ActionBarActivity(), NavigationDrawerFragment.Naviga
         mTitle = getTitle()
 
         // Set up the drawer.
-        mNavigationDrawerFragment!!.setUp(R.id.navigation_drawer, findViewById(R.id.drawer_layout) as DrawerLayout)
+        mNavigationDrawerFragment!!.setUp(R.id.navigation_drawer,
+                findViewById(R.id.drawer_layout) as DrawerLayout)
     }
 
     override fun onNavigationDrawerItemSelected(position: Int) {
@@ -70,10 +71,4 @@ public class MainActivity : ActionBarActivity(), NavigationDrawerFragment.Naviga
 
         return super<ActionBarActivity>.onOptionsItemSelected(item)
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-
-
 }
