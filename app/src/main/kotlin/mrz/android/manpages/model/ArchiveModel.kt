@@ -15,8 +15,8 @@ public class ArchiveModel(val context: Context) {
         return realm.where(javaClass<Archive>()).equalTo("project", project).findAll()
     }
 
-    fun getArchive(project: String, version: String): Archive? {
-        return realm.where(javaClass<Archive>()).equalTo("project", project).equalTo("version", version).findFirst()
+    fun getArchive(project: CharSequence, version: CharSequence): Archive? {
+        return realm.where(javaClass<Archive>()).equalTo("project", project.toString()).equalTo("version", version.toString()).findFirst()
     }
 }
 

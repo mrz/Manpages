@@ -2,15 +2,12 @@ package mrz.android.manpages.ui
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.TextView
 import mrz.android.manpages.R
 import java.util.ArrayList
-import java.util.Random
 
-public open class VerticalItemAdapter<T>() : RecyclerView.Adapter<VerticalItemAdapter.VerticalItemHolder>() {
+public open class VerticalItemAdapter<T>() : RecyclerView.Adapter<VerticalItemHolder>() {
     private val mItems: ArrayList<T> = ArrayList()
     private var mOnItemClickListener: AdapterView.OnItemClickListener? = null
 
@@ -23,6 +20,26 @@ public open class VerticalItemAdapter<T>() : RecyclerView.Adapter<VerticalItemAd
         if (position >= mItems.size()) return
         mItems.add(position, what)
         notifyItemInserted(position)
+    }
+
+    public fun addItem(what: T) {
+        mItems.add(what)
+        // notifyItemInserted(mItems.size())
+    }
+
+    public fun clearItems() {
+        mItems.clear()
+        //notifyItemRangeRemoved(0, mItems.size())
+    }
+
+    public fun addItems(items: List<T>) {
+        clearItems()
+        mItems.addAll(items)
+        //notifyItemRangeInserted(0, mItems.size())
+    }
+
+    public fun getItem(position: Int): T {
+        return mItems.get(position)
     }
 
     /*
@@ -56,24 +73,7 @@ public open class VerticalItemAdapter<T>() : RecyclerView.Adapter<VerticalItemAd
         mOnItemClickListener = onItemClickListener
     }
 
-    private fun onItemHolderClick(itemHolder: VerticalItemHolder) {
+    public fun onItemHolderClick(itemHolder: VerticalItemHolder) {
         mOnItemClickListener?.onItemClick(null, itemHolder.itemView, itemHolder.getPosition(), itemHolder.getItemId())
-    }
-
-    public class VerticalItemHolder(itemView: View, private val mAdapter: VerticalItemAdapter<CharSequence>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private val mName: TextView
-
-        {
-            itemView.setOnClickListener(this)
-            mName = itemView.findViewById(R.id.name) as TextView
-        }
-
-        override fun onClick(v: View) {
-            mAdapter.onItemHolderClick(this)
-        }
-
-        public fun setName(name: CharSequence) {
-            mName.setText(name)
-        }
     }
 }

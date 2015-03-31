@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import mrz.android.manpages.R
 
-public class VerticalItemHolder(itemView: View, private val mAdapter: VerticalItemAdapter<CharSequence>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+public class VerticalItemHolder(itemView: View, private val mAdapter: VerticalItemAdapter<*>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
     private val mName: TextView
 
     {
@@ -21,4 +21,3 @@ public class VerticalItemHolder(itemView: View, private val mAdapter: VerticalIt
         mName.setText(name)
     }
 }
-

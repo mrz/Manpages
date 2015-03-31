@@ -1,22 +1,23 @@
 package mrz.android.manpages
 
 import android.app.Application
-
+import com.firebase.client.Firebase
 import timber.log.Timber
-import android.util.Log
 
-public class MainApp: Application() {
+public class MainApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
-        if(BuildConfig.DEBUG)
+        Firebase.setAndroidContext(this)
+
+        if (BuildConfig.DEBUG)
             Timber.plant(Timber.DebugTree())
         else
             Timber.plant(CrashReportingTree())
     }
 
-    class CrashReportingTree: Timber.HollowTree() {
+    class CrashReportingTree : Timber.HollowTree() {
         override fun i(message: String?, vararg args: Any?) {
             // Crashlytics.log(message)  // TODO
         }
