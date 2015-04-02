@@ -26,13 +26,13 @@ public open class ProjectAdapter<T>() : RecyclerView.Adapter<ItemHolder>() {
 
     public fun addItem(what: T) {
         mItems.add(what)
-        //notifyDataSetChanged()
         notifyItemInserted(mItems.size() - 1)
     }
 
     public fun clearItems() {
+        val size = mItems.size()
         mItems.clear()
-        notifyItemRangeRemoved(0, mItems.size())
+        notifyItemRangeRemoved(0, size)
     }
 
     public fun addItems(items: List<T>, clear: Boolean = false) {

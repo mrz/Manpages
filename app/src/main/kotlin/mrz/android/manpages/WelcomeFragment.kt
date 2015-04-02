@@ -2,6 +2,7 @@ package mrz.android.manpages
 
 import android.net.Uri
 import android.os.Bundle
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -35,9 +36,9 @@ open class WelcomeFragment : RecyclerViewFragment(R.layout.fragment_welcome, R.i
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
-        setLayoutManager(object : LinearLayoutManager(getActivity()) {})
-
-        setItemDecoration(object : DividerDecoration(getActivity()) {})
+        setLayoutManager(LinearLayoutManager(getActivity()))
+        setItemDecoration(DividerDecoration(getActivity()))
+        setItemAnimator(DefaultItemAnimator())
 
         return view
     }
@@ -59,8 +60,11 @@ open class WelcomeFragment : RecyclerViewFragment(R.layout.fragment_welcome, R.i
         adapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
                 Timber.d("Clicked on ${adapter.getItem(position)}")
-                showVersions(adapter.getItem(position))
+
+                val what = adapter.getItem(position)
                 adapter.clearItems()
+
+                showVersions(what)
             }
         })
 
@@ -92,8 +96,8 @@ open class WelcomeFragment : RecyclerViewFragment(R.layout.fragment_welcome, R.i
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<CharSequence> {
                     override fun onCompleted() {
-                        adapter.notifyDataSetChanged()
-/*                        adapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+/*                        adapter.notifyDataSetChanged()
+                        adapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
                             override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                                 val downloadURL = generateDownloadURL(what, adapter.getItem(position))
                                 EventBus.getDefault().post(StartDownloadEvent(downloadURL,

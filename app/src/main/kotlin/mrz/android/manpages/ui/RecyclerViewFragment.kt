@@ -10,7 +10,6 @@ import android.view.ViewGroup
 
 public open class RecyclerViewFragment(val layoutId: Int, val listId: Int = android.R.id.list): Fragment() {
 
-    private var adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>? = null
     protected var list: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -18,16 +17,20 @@ public open class RecyclerViewFragment(val layoutId: Int, val listId: Int = andr
 
         list = view.findViewById(listId) as RecyclerView?
 
+        return view
+    }
+
+    fun setItemAnimator(animator: RecyclerView.ItemAnimator) {
+        list?.setItemAnimator(animator)
+
         list?.getItemAnimator()?.setAddDuration(1000);
         list?.getItemAnimator()?.setChangeDuration(1000);
         list?.getItemAnimator()?.setMoveDuration(1000);
         list?.getItemAnimator()?.setRemoveDuration(1000);
 
-        return view
     }
 
     fun setListAdapter(adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>) {
-        this.adapter = adapter
         list?.setAdapter(adapter)
     }
 
