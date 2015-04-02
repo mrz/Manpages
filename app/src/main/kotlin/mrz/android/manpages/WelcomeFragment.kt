@@ -16,7 +16,7 @@ import mrz.android.manpages.events.StartDownloadEvent
 import mrz.android.manpages.model.ArchiveModel
 import mrz.android.manpages.ui.DividerDecoration
 import mrz.android.manpages.ui.RecyclerViewFragment
-import mrz.android.manpages.ui.VerticalItemAdapter
+import mrz.android.manpages.ui.ProjectAdapter
 import rx.Observable
 import rx.Observer
 import rx.Subscriber
@@ -26,7 +26,7 @@ import kotlin.properties.Delegates
 
 open class WelcomeFragment : RecyclerViewFragment(R.layout.fragment_welcome, R.id.list) {
 
-    var adapter = VerticalItemAdapter<CharSequence>()
+    var adapter = ProjectAdapter<CharSequence>()
 
     private val archiveModel: ArchiveModel by Delegates.lazy {
         ArchiveModel(getActivity().getApplicationContext())
