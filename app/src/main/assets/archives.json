@@ -1,4 +1,8 @@
 {
+    "Projects" : [
+        { "name" : "Linux" },
+        { "name" : "FreeBSD" }
+    ],
     "Linux" : [
         { "version"    : "3.70",
           "uri"        : "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.70.tar.gz",

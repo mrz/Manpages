@@ -8,16 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.firebase.client.DataSnapshot
-import com.firebase.client.Firebase
-import com.firebase.client.FirebaseError
-import com.firebase.client.ValueEventListener
-import de.greenrobot.event.EventBus
-import mrz.android.manpages.events.StartDownloadEvent
+import android.widget.ProgressBar
 import mrz.android.manpages.model.ArchiveModel
+import mrz.android.manpages.rx.NetworkAPI
 import mrz.android.manpages.ui.DividerDecoration
-import mrz.android.manpages.ui.RecyclerViewFragment
 import mrz.android.manpages.ui.ProjectAdapter
+import mrz.android.manpages.ui.RecyclerViewFragment
 import rx.Observable
 import rx.Observer
 import rx.Subscriber
@@ -33,12 +29,29 @@ open class WelcomeFragment : RecyclerViewFragment(R.layout.fragment_welcome, R.i
         ArchiveModel(getActivity().getApplicationContext())
     }
 
+    private val progressBar: ProgressBar by Delegates.lazy {
+        getView().findViewById(R.id.load_progress) as ProgressBar
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         setLayoutManager(LinearLayoutManager(getActivity()))
         setItemDecoration(DividerDecoration(getActivity()))
         setItemAnimator(DefaultItemAnimator())
+
+        adapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                Timber.d("Clicked on ${adapter.getItem(position)}")
+
+                val what = adapter.getItem(position)
+                adapter.clearItems()
+
+                showVersions(what)
+            }
+        })
+
+        setListAdapter(adapter)
 
         return view
     }
@@ -55,65 +68,70 @@ open class WelcomeFragment : RecyclerViewFragment(R.layout.fragment_welcome, R.i
     }
 
     private fun showProjects() {
-        adapter.addItems(listOf("Linux", "FreeBSD"))
-
-        adapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
-            override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
-                Timber.d("Clicked on ${adapter.getItem(position)}")
-
-                val what = adapter.getItem(position)
-                adapter.clearItems()
-
-                showVersions(what)
-            }
-        })
-
-        setListAdapter(adapter)
-    }
-
-    private fun showVersions(what: CharSequence) {
-        Observable.create { subscriber: Subscriber<in DataSnapshot>? ->
-            val firebase = Firebase("https://manpages.firebaseio.com/${what}")
-
-            firebase.addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(firebaseError: FirebaseError?) {
-                    Timber.e("${firebaseError?.getCode()}")
-                }
-
-                override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                    subscriber?.onNext(dataSnapshot)
-                }
-            })
-        }
-                .flatMap { dataSnapshot ->
+        NetworkAPI().getProjects()
+                .flatMap { value ->
                     Observable.create { subscriber: Subscriber<in CharSequence>? ->
-                        for (i in dataSnapshot?.getChildren()?.iterator()) {
-                            subscriber?.onNext(i.getValue().toString())
-                        }
+                        // subscriber?.onNext(/* {name=Linux} -> Linux */)
                         subscriber?.onCompleted()
                     }
                 }
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<CharSequence> {
+                    override fun onNext(t: CharSequence?) {
+                        Timber.d("$t")
+                        adapter.addItem("$t")
+                    }
+
                     override fun onCompleted() {
-/*                        adapter.notifyDataSetChanged()
-                        adapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
-                            override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                                val downloadURL = generateDownloadURL(what, adapter.getItem(position))
-                                EventBus.getDefault().post(StartDownloadEvent(downloadURL,
-                                        archiveModel.getArchive(what, adapter.getItem(position))!!.getFilename()))
-                            }
-                        })*/
+                        //
                     }
 
                     override fun onError(e: Throwable?) {
                         Timber.e(e.toString(), e)
                     }
 
-                    override fun onNext(t: CharSequence?) {
-                        Timber.d("$t")
-                        adapter.addItem("$t")
-                    }
                 })
+    }
+
+    private fun showVersions(what: CharSequence) {
+        progressBar.setVisibility(View.VISIBLE)
+
+        val o = NetworkAPI().getVersions(what)
+                .observeOn(AndroidSchedulers.mainThread())
+
+        o.take(1).subscribe(object : Observer<CharSequence> {
+            override fun onCompleted() {
+                //
+            }
+
+            override fun onNext(t: CharSequence?) {
+                progressBar.setVisibility(View.GONE)
+            }
+
+            override fun onError(e: Throwable?) {
+                Timber.e(e, e.toString())
+            }
+
+        })
+
+        o.subscribe(object : Observer<CharSequence> {
+            override fun onCompleted() {
+                /*
+                adapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+                    override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                        val downloadURL = generateDownloadURL(what, adapter.getItem(position))
+                        EventBus.getDefault().post(StartDownloadEvent(downloadURL,
+                                archiveModel.getArchive(what, adapter.getItem(position))!!.getFilename()))
+                    }
+                })*/
+            }
+
+            override fun onError(e: Throwable?) {
+                Timber.e(e.toString(), e)
+            }
+
+            override fun onNext(t: CharSequence?) {
+                adapter.addItem("$t")
+            }
+        })
     }
 }
