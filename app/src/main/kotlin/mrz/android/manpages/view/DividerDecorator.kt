@@ -1,4 +1,4 @@
-package mrz.android.manpages.ui
+package mrz.android.manpages.view
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -26,7 +26,7 @@ public open class DividerDecoration(context: Context) : RecyclerView.ItemDecorat
 
     private val mInsets: Int
 
-    {
+    init {
         val a = context.obtainStyledAttributes(ATTRS)
         mDivider = a.getDrawable(0)
         a.recycle()

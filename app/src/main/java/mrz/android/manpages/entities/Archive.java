@@ -1,5 +1,7 @@
 package mrz.android.manpages.entities;
 
+import com.google.gson.Gson;
+
 import io.realm.RealmObject;
 
 public class Archive extends RealmObject {
@@ -62,5 +64,17 @@ public class Archive extends RealmObject {
 
     public void setDownloaded(boolean downloaded) {
         this.downloaded = downloaded;
+    }
+
+    public Archive() {
+        setDownloaded(false);
+    }
+
+    public static Archive fromJson(CharSequence json) {
+        Archive archive = new Gson().fromJson(json.toString(), Archive.class);
+
+        archive.setDownloaded(false);
+
+        return archive;
     }
 }

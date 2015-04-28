@@ -1,4 +1,4 @@
-package mrz.android.manpages.ui
+package mrz.android.manpages.view
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.TextView
 import mrz.android.manpages.R
+import mrz.android.manpages.entities.Archive
+import mrz.android.manpages.entities.Project
 import java.util.ArrayList
 
-public open class ProjectAdapter<T>() : RecyclerView.Adapter<ItemHolder>() {
+public open class ListAdapter<T>() : RecyclerView.Adapter<ItemHolder>() {
     private val mItems: ArrayList<T> = ArrayList()
     private var mOnItemClickListener: AdapterView.OnItemClickListener? = null
 
@@ -66,7 +68,7 @@ public open class ProjectAdapter<T>() : RecyclerView.Adapter<ItemHolder>() {
     override fun onBindViewHolder(itemHolder: ItemHolder, position: Int) {
         val item = mItems.get(position)
 
-        itemHolder.setName(item as CharSequence)
+        itemHolder.bind(item)
     }
 
     override fun getItemCount(): Int {
@@ -82,10 +84,10 @@ public open class ProjectAdapter<T>() : RecyclerView.Adapter<ItemHolder>() {
     }
 }
 
-public class ItemHolder(itemView: View, private val mAdapter: ProjectAdapter<*>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+public class ItemHolder(itemView: View, val mAdapter: ListAdapter<*>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
     private val mName: TextView
 
-    {
+    init {
         itemView.setOnClickListener(this)
         mName = itemView.findViewById(R.id.name) as TextView
     }
@@ -96,5 +98,16 @@ public class ItemHolder(itemView: View, private val mAdapter: ProjectAdapter<*>)
 
     public fun setName(name: CharSequence) {
         mName.setText(name)
+    }
+
+    fun <T> bind(item: T) {
+        when (item) {
+            is Project -> {
+                mName.setText(item.getName())
+            }
+            is Archive -> {
+                mName.setText("${item.getProject()} ${item.getVersion()}")
+            }
+        }
     }
 }

@@ -1,27 +1,22 @@
-package mrz.android.manpages
+package mrz.android.manpages.view
 
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBar
-import android.support.v7.app.ActionBarActivity
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import mrz.android.manpages
+import mrz.android.manpages.R
 
+public class MainActivity : AppCompatActivity(), NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-public class MainActivity : ActionBarActivity(), NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
     private var mNavigationDrawerFragment: NavigationDrawerFragment? = null
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private var mTitle: CharSequence? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super<ActionBarActivity>.onCreate(savedInstanceState)
+        super<AppCompatActivity>.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         mNavigationDrawerFragment = getSupportFragmentManager().findFragmentById(
@@ -55,7 +50,7 @@ public class MainActivity : ActionBarActivity(), NavigationDrawerFragment.Naviga
             restoreActionBar()
             return true
         }
-        return super<ActionBarActivity>.onCreateOptionsMenu(menu)
+        return super<AppCompatActivity>.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,6 +64,6 @@ public class MainActivity : ActionBarActivity(), NavigationDrawerFragment.Naviga
             return true
         }
 
-        return super<ActionBarActivity>.onOptionsItemSelected(item)
+        return super<AppCompatActivity>.onOptionsItemSelected(item)
     }
 }

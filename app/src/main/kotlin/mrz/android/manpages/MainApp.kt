@@ -1,6 +1,7 @@
 package mrz.android.manpages
 
 import android.app.Application
+import android.util.Log
 import com.firebase.client.Firebase
 import timber.log.Timber
 
@@ -17,23 +18,13 @@ public class MainApp : Application() {
             Timber.plant(CrashReportingTree())
     }
 
-    class CrashReportingTree : Timber.HollowTree() {
-        override fun i(message: String?, vararg args: Any?) {
-            // Crashlytics.log(message)  // TODO
-        }
+    class CrashReportingTree : Timber.Tree() {
+        override fun log(priority: Int, tag: String?, message: String?, t: Throwable?) {
+            when (priority) {
+                Log.DEBUG, Log.VERBOSE -> return
+            }
 
-        override fun i(t: Throwable?, message: String?, vararg args: Any?) {
-            // Crashlytics.logException(t)
-            i(message, args)
-        }
-
-        override fun e(message: String?, vararg args: Any?) {
-            i("ERROR: ${message}", args)
-        }
-
-        override fun e(t: Throwable?, message: String?, vararg args: Any?) {
-            // Crashlytics.logException(t)
-            e(message, args)
+            // TODO Route to Crashlytics or whatever
         }
     }
 }

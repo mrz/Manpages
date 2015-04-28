@@ -1,4 +1,4 @@
-package mrz.android.manpages
+package mrz.android.manpages.view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import mrz.android.manpages.R
 
 /**
  * A layout that draws something in the insets passed to [.fitSystemWindows], i.e. the area above UI chrome

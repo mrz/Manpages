@@ -1,17 +1,19 @@
-package mrz.android.manpages
+package mrz.android.manpages.view
 
-import android.widget.BaseAdapter
+import android.R
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.LayoutInflater
-import android.content.Context
+import android.widget.BaseAdapter
+import android.widget.SpinnerAdapter
 import android.widget.TextView
 import java.util.ArrayList
 
 public open class SpinnerAdapter(
         val context: Context,
-        val spinnerLayout: Int = android.R.layout.simple_spinner_item,
-        val itemLayout: Int = android.R.layout.simple_spinner_dropdown_item) : BaseAdapter(), android.widget.SpinnerAdapter {
+        val spinnerLayout: Int = R.layout.simple_spinner_item,
+        val itemLayout: Int = R.layout.simple_spinner_dropdown_item) : BaseAdapter(), SpinnerAdapter {
 
     private var mItems: ArrayList<CharSequence>? = ArrayList()
 
@@ -49,7 +51,7 @@ public open class SpinnerAdapter(
     }
 
     private fun populateView(position: Int, view: View?): View? {
-        var viewHolder = view?.getTag() as ViewHolder? ?: ViewHolder(view?.findViewById(android.R.id.text1) as TextView?)
+        var viewHolder = view?.getTag() as ViewHolder? ?: ViewHolder(view?.findViewById(R.id.text1) as TextView?)
 
         viewHolder.textView?.setText(mItems?.get(position))
 
@@ -58,4 +60,3 @@ public open class SpinnerAdapter(
 
     class ViewHolder(val textView: TextView?)
 }
-

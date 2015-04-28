@@ -1,12 +1,12 @@
-package mrz.android.manpages
+package mrz.android.manpages.view
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.os.Bundle
 import android.view.View
-import android.app.Activity
+import android.view.ViewGroup
 import android.widget.ProgressBar
+import mrz.android.manpages.R
 import kotlin.properties.Delegates
 
 public class MainFragment : Fragment() {

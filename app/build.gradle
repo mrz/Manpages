@@ -45,6 +45,7 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 
     compileOptions {
@@ -54,22 +55,25 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    compile 'com.android.support:appcompat-v7:22.0.0'
-
-    compile 'com.android.support:recyclerview-v7:22.0.0'
-
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:0.11.91.1'
+    compile 'com.android.support:appcompat-v7:22.1.0'
+    compile 'com.android.support:recyclerview-v7:22.1.0'
 
     compile 'io.reactivex:rxandroid:0.24.0'
 
     compile 'de.greenrobot:eventbus:2.4.0'
 
-    compile 'io.realm:realm-android:0.80.0'
+    compile 'io.realm:realm-android:0.80.1'
     compile 'com.google.code.gson:gson:2.3.1'
 
     compile 'com.firebase:firebase-client-android:2.2.3'
 
-    compile 'com.jakewharton.timber:timber:2.5.0'
+    compile 'com.jakewharton.timber:timber:3.0.1'
+
+    //mosby
+    compile 'com.hannesdorfmann.mosby:core:1.0.0'
+    compile 'com.hannesdorfmann.mosby:mvp:1.0.0'
+    compile 'com.hannesdorfmann.mosby:viewstate:1.0.0'
+    compile 'com.hannesdorfmann.mosby:rx:1.0.0'
 }
