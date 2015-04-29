@@ -7,15 +7,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ProgressBar
+import android.widget.ViewFlipper
 import com.hannesdorfmann.mosby.mvp.MvpFragment
+import de.greenrobot.event.EventBus
 import mrz.android.manpages.R
 import mrz.android.manpages.entities.Archive
 import mrz.android.manpages.entities.Project
+import mrz.android.manpages.events.ProjectSelectedEvent
 import mrz.android.manpages.presenter.WelcomePresenter
 import timber.log.Timber
 import kotlin.properties.Delegates
 
 class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
+
+    // ViewFlipper contants
+    private val LOADING = 0
+    private val LIST = 1
 
   /*private val archiveModel: ArchiveModel by Delegates.lazy {
         ArchiveModel(getActivity().getApplicationContext())
@@ -25,8 +32,8 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
         getView().findViewById(R.id.list) as RecyclerView
     }
 
-    private val progressBar: ProgressBar by Delegates.lazy {
-        getView().findViewById(R.id.load_progress) as ProgressBar
+    private val viewFlipper : ViewFlipper by Delegates.lazy {
+        getView().findViewById(R.id.viewFlipper) as ViewFlipper
     }
 
     var projectAdapter = ListAdapter<Project?>()
@@ -37,6 +44,8 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
         super<MvpFragment>.onCreate(savedInstanceState)
 
         setRetainInstance(true)
+
+        EventBus.getDefault().register(this)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -44,7 +53,13 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
 
         setupList()
 
-        //presenter.loadProjects()
+        projectAdapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                EventBus.getDefault().post(ProjectSelectedEvent(projectAdapter.getItem(position)?.getName()!!))
+            }
+        })
+
+        presenter.loadProjects()
     }
 
     override fun createPresenter(): WelcomePresenter? {
@@ -52,19 +67,15 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
     }
 
     override fun setData(project: Project) {
-        Timber.d("Received ${project.getName()}")
-
         projectAdapter.addItem(project)
     }
 
     override fun setData(archive: Archive) {
-        Timber.d("Received ${archive.getProject()} ${archive.getVersion()}")
-
         archiveAdapter.addItem(archive)
     }
 
-    override fun showLoading() {
-        progressBar.setVisibility(View.VISIBLE)
+    override fun showLoading(loading: Boolean) {
+        viewFlipper.setDisplayedChild(if(loading) LOADING else LIST)
     }
 
     override fun showError(e: Throwable?) {
@@ -72,21 +83,14 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
     }
 
     override fun showProjects() {
-        progressBar.setVisibility(View.GONE)
+        showLoading(false)
 
         list.setAdapter(projectAdapter)
-
-        projectAdapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
-            override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
-                Timber.d("Clicked on ${projectAdapter.getItem(position)?.getName()}")
-
-                presenter.loadArchives("Linux")
-            }
-        })
     }
 
     override fun showArchives() {
-        progressBar.setVisibility(View.GONE)
+        showLoading(false)
+
         list.setAdapter(archiveAdapter)
     }
 
@@ -103,6 +107,10 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
         list.getItemAnimator()?.setChangeDuration(1000);
         list.getItemAnimator()?.setMoveDuration(1000);
         list.getItemAnimator()?.setRemoveDuration(1000);
+    }
+
+    fun onEvent(event: ProjectSelectedEvent) {
+        presenter.loadArchives(event.project)
     }
 
 /*    private fun generateDownloadURL(distribution: CharSequence, version: CharSequence): Uri {

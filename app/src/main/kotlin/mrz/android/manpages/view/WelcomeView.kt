@@ -10,7 +10,7 @@ trait WelcomeView : MvpView {
 
     fun setData(archive: Archive)
 
-    fun showLoading()
+    fun showLoading(loading: Boolean)
 
     fun showError(e: Throwable?)
 

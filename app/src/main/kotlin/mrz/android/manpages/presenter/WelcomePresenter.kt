@@ -33,13 +33,13 @@ class WelcomePresenter() : MvpPresenter<WelcomeView> {
 
     fun loadProjects() {
         if (isViewAttached())
-            getView()?.showLoading()
+            getView()?.showLoading(true)
 
         NetworkAPI().getProjects()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<Project> {
                     override fun onNext(t: Project) {
-                        if(isViewAttached())
+                        if (isViewAttached())
                             getView()?.setData(t)
                     }
 
@@ -59,28 +59,48 @@ class WelcomePresenter() : MvpPresenter<WelcomeView> {
 
     fun loadArchives(project: String) {
         if (isViewAttached())
-            getView()?.showLoading()
+            getView()?.showLoading(true)
 
-        NetworkAPI().getVersions(project)
+        val o = NetworkAPI().getVersions(project)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Archive> {
-                    override fun onCompleted() {
-                        if (isViewAttached())
-                            getView()?.showArchives()
-                    }
 
-                    override fun onError(e: Throwable?) {
-                        Timber.e(e, "${e.toString()}")
+        o.take(1).subscribe(object : Observer<Archive> {
+            override fun onError(e: Throwable?) {
+                Timber.e(e, "${e.toString()}")
 
-                        if (isViewAttached())
-                            getView()?.showError(e)
-                    }
+                if (isViewAttached())
+                    getView()?.showError(e)
+            }
 
-                    override fun onNext(t: Archive) {
-                        if(isViewAttached())
-                            getView()?.setData(t)
-                    }
-                })
+            override fun onNext(t: Archive?) {
+                if (isViewAttached())
+                    getView()?.showLoading(false)
+            }
+
+            override fun onCompleted() {
+                //
+            }
+
+        })
+
+        o.subscribe(object : Observer<Archive> {
+            override fun onCompleted() {
+                if (isViewAttached())
+                    getView()?.showArchives()
+            }
+
+            override fun onError(e: Throwable?) {
+                Timber.e(e, "${e.toString()}")
+
+                if (isViewAttached())
+                    getView()?.showError(e)
+            }
+
+            override fun onNext(t: Archive) {
+                if (isViewAttached())
+                    getView()?.setData(t)
+            }
+        })
     }
 }
 

@@ -96,10 +96,6 @@ public class ItemHolder(itemView: View, val mAdapter: ListAdapter<*>) : Recycler
         mAdapter.onItemHolderClick(this)
     }
 
-    public fun setName(name: CharSequence) {
-        mName.setText(name)
-    }
-
     fun <T> bind(item: T) {
         when (item) {
             is Project -> {
