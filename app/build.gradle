@@ -58,20 +58,20 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     compile 'com.android.support:appcompat-v7:22.1.1'
-    compile 'com.android.support:recyclerview-v7:22.1.0'
+    compile 'com.android.support:recyclerview-v7:22.1.1'
 
     compile 'io.reactivex:rxandroid:0.24.0'
 
     compile 'de.greenrobot:eventbus:2.4.0'
 
-    compile 'io.realm:realm-android:0.80.1'
+    compile 'io.realm:realm-android:0.80.2'
     compile 'com.google.code.gson:gson:2.3.1'
 
-    compile 'com.firebase:firebase-client-android:2.2.3'
+    compile 'com.firebase:firebase-client-android:2.2.4'
 
-    compile 'com.jakewharton.timber:timber:3.0.1'
+    compile 'com.jakewharton.timber:timber:3.0.2'
 
-    //mosby
+    // Mosby
     compile 'com.hannesdorfmann.mosby:core:1.0.0'
     compile 'com.hannesdorfmann.mosby:mvp:1.0.0'
     compile 'com.hannesdorfmann.mosby:viewstate:1.0.0'
