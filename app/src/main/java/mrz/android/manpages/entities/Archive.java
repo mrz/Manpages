@@ -6,8 +6,6 @@ import io.realm.RealmObject;
 
 public class Archive extends RealmObject {
 
-    private String project;
-
     private String version;
 
     private String uri;
@@ -24,14 +22,6 @@ public class Archive extends RealmObject {
 
     public void setUri(String uri) {
         this.uri = uri;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
     }
 
     public String getVersion() {

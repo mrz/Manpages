@@ -15,6 +15,9 @@ import mrz.android.manpages.entities.Archive
 import mrz.android.manpages.entities.Project
 import mrz.android.manpages.events.ProjectSelectedEvent
 import mrz.android.manpages.presenter.WelcomePresenter
+import mrz.android.manpages.view.adapter.ArchiveAdapter
+import mrz.android.manpages.view.adapter.ListAdapter
+import mrz.android.manpages.view.adapter.ProjectAdapter
 import timber.log.Timber
 import kotlin.properties.Delegates
 
@@ -36,9 +39,9 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
         getView().findViewById(R.id.viewFlipper) as ViewFlipper
     }
 
-    var projectAdapter = ListAdapter<Project?>()
+    var projectAdapter = ProjectAdapter()
 
-    var archiveAdapter = ListAdapter<Archive?>()
+    var archiveAdapter = ArchiveAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<MvpFragment>.onCreate(savedInstanceState)

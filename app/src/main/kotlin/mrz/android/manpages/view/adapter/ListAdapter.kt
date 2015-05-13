@@ -1,17 +1,18 @@
-package mrz.android.manpages.view
+package mrz.android.manpages.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ImageView
 import android.widget.TextView
 import mrz.android.manpages.R
 import mrz.android.manpages.entities.Archive
 import mrz.android.manpages.entities.Project
 import java.util.ArrayList
 
-public open class ListAdapter<T>() : RecyclerView.Adapter<ItemHolder>() {
+public abstract class ListAdapter<T>() : RecyclerView.Adapter<ItemHolder<T>>() {
     private val mItems: ArrayList<T> = ArrayList()
     private var mOnItemClickListener: AdapterView.OnItemClickListener? = null
 
@@ -59,18 +60,6 @@ public open class ListAdapter<T>() : RecyclerView.Adapter<ItemHolder>() {
         return mItems.get(position)
     }
 
-    override fun onCreateViewHolder(container: ViewGroup, viewType: Int): ItemHolder {
-        val inflater = LayoutInflater.from(container.getContext())
-        val root = inflater.inflate(R.layout.list_item, container, false)
-        return ItemHolder(root, this)
-    }
-
-    override fun onBindViewHolder(itemHolder: ItemHolder, position: Int) {
-        val item = mItems.get(position)
-
-        itemHolder.bind(item)
-    }
-
     override fun getItemCount(): Int {
         return mItems.size()
     }
@@ -79,31 +68,20 @@ public open class ListAdapter<T>() : RecyclerView.Adapter<ItemHolder>() {
         mOnItemClickListener = onItemClickListener
     }
 
-    public fun onItemHolderClick(itemHolder: ItemHolder) {
+    public fun onItemHolderClick(itemHolder: ItemHolder<T>) {
         mOnItemClickListener?.onItemClick(null, itemHolder.itemView, itemHolder.getPosition(), itemHolder.getItemId())
     }
 }
 
-public class ItemHolder(itemView: View, val mAdapter: ListAdapter<*>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-    private val mName: TextView
+public abstract class ItemHolder<T>(itemView: View, val mAdapter: ListAdapter<*>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     init {
         itemView.setOnClickListener(this)
-        mName = itemView.findViewById(R.id.name) as TextView
     }
 
     override fun onClick(v: View) {
         mAdapter.onItemHolderClick(this)
     }
 
-    fun <T> bind(item: T) {
-        when (item) {
-            is Project -> {
-                mName.setText(item.getName())
-            }
-            is Archive -> {
-                mName.setText("${item.getProject()} ${item.getVersion()}")
-            }
-        }
-    }
+    abstract fun bind(item: T)
 }
