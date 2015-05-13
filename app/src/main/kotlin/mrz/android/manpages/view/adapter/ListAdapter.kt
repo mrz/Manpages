@@ -64,6 +64,12 @@ public abstract class ListAdapter<T>() : RecyclerView.Adapter<ItemHolder<T>>() {
         return mItems.size()
     }
 
+    override fun onBindViewHolder(itemHolder: ItemHolder<T>, position: Int) {
+        val item = getItem(position)
+
+        itemHolder.bind(item)
+    }
+
     public fun setOnItemClickListener(onItemClickListener: AdapterView.OnItemClickListener) {
         mOnItemClickListener = onItemClickListener
     }

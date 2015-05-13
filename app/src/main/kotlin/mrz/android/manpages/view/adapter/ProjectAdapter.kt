@@ -9,12 +9,6 @@ import mrz.android.manpages.entities.Project
 
 public class ProjectAdapter : ListAdapter<Project>() {
 
-    override fun onBindViewHolder(itemHolder: ItemHolder<Project>, position: Int) {
-        val item = getItem(position)
-
-        itemHolder.bind(item)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ItemHolder<Project>? {
         val inflater = LayoutInflater.from(parent?.getContext())
         val root = inflater.inflate(R.layout.list_item, parent, false)

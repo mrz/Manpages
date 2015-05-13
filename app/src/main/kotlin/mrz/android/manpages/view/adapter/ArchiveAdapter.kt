@@ -8,11 +8,6 @@ import mrz.android.manpages.R
 import mrz.android.manpages.entities.Archive
 
 public class ArchiveAdapter() : ListAdapter<Archive>() {
-    override fun onBindViewHolder(itemHolder: ItemHolder<Archive>, position: Int) {
-        val item = getItem(position)
-
-        itemHolder.bind(item)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ItemHolder<Archive>? {
         val inflater = LayoutInflater.from(parent?.getContext())
