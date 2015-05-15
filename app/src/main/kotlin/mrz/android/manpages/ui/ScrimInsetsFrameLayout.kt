@@ -1,4 +1,4 @@
-package mrz.android.manpages.view
+package mrz.android.manpages.ui
 
 import android.content.Context
 import android.graphics.Canvas

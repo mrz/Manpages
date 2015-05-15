@@ -1,4 +1,4 @@
-package mrz.android.manpages.view
+package mrz.android.manpages.ui.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

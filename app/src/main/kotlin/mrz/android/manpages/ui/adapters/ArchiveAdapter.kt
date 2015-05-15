@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import mrz.android.manpages.R
-import mrz.android.manpages.entities.Archive
+import mrz.android.manpages.model.entities.Archive
 
 public class ArchiveAdapter() : ListAdapter<Archive>() {
 

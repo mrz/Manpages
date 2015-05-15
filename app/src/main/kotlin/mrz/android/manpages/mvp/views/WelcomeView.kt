@@ -1,8 +1,8 @@
 package mrz.android.manpages.view
 
 import com.hannesdorfmann.mosby.mvp.MvpView
-import mrz.android.manpages.entities.Archive
-import mrz.android.manpages.entities.Project
+import mrz.android.manpages.model.entities.Archive
+import mrz.android.manpages.model.entities.Project
 
 trait WelcomeView : MvpView {
 

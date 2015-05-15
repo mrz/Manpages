@@ -2,7 +2,7 @@ package mrz.android.manpages.model
 
 import android.content.Context
 import io.realm.Realm
-import mrz.android.manpages.entities.Archive
+import mrz.android.manpages.model.entities.Archive
 
 public class ArchiveModel(val context: Context) {
     val realm = Realm.getInstance(context)

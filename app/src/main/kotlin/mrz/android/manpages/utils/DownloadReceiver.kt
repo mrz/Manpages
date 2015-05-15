@@ -1,15 +1,13 @@
-package mrz.android.manpages
+package mrz.android.manpages.utils
 
+import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.app.DownloadManager
-import android.app.DownloadManager.Query
 import android.os.ParcelFileDescriptor
-import java.io.FileInputStream
-import timber.log.Timber
 import de.greenrobot.event.EventBus
 import mrz.android.manpages.events.FileDownloadedEvent
+import timber.log.Timber
 
 public class DownloadReceiver(val context: Context, val downloadId: Long) : BroadcastReceiver() {
     val mDownloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -19,7 +17,7 @@ public class DownloadReceiver(val context: Context, val downloadId: Long) : Broa
 
         if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
             val downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
-            val query = Query();
+            val query = DownloadManager.Query();
 
             query.setFilterById(downloadId);
 
@@ -43,4 +41,3 @@ public class DownloadReceiver(val context: Context, val downloadId: Long) : Broa
         }
     }
 }
-

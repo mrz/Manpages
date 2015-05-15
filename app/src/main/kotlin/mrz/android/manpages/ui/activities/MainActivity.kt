@@ -1,4 +1,4 @@
-package mrz.android.manpages.view
+package mrz.android.manpages.ui.activities
 
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
@@ -6,8 +6,9 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import mrz.android.manpages
 import mrz.android.manpages.R
+import mrz.android.manpages.ui.fragments.MainFragment
+import mrz.android.manpages.ui.fragments.NavigationDrawerFragment
 
 public class MainActivity : AppCompatActivity(), NavigationDrawerFragment.NavigationDrawerCallbacks {
 

@@ -1,4 +1,4 @@
-package mrz.android.manpages.view
+package mrz.android.manpages.ui.fragments
 
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
@@ -6,19 +6,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ProgressBar
 import android.widget.ViewFlipper
 import com.hannesdorfmann.mosby.mvp.MvpFragment
 import de.greenrobot.event.EventBus
 import mrz.android.manpages.R
-import mrz.android.manpages.entities.Archive
-import mrz.android.manpages.entities.Project
+import mrz.android.manpages.model.entities.Archive
+import mrz.android.manpages.model.entities.Project
 import mrz.android.manpages.events.ProjectSelectedEvent
-import mrz.android.manpages.presenter.WelcomePresenter
+import mrz.android.manpages.mvp.presenters.WelcomePresenter
+import mrz.android.manpages.ui.DividerDecoration
+import mrz.android.manpages.view.WelcomeView
 import mrz.android.manpages.view.adapter.ArchiveAdapter
-import mrz.android.manpages.view.adapter.ListAdapter
 import mrz.android.manpages.view.adapter.ProjectAdapter
-import timber.log.Timber
 import kotlin.properties.Delegates
 
 class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
@@ -27,15 +26,15 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
     private val LOADING = 0
     private val LIST = 1
 
-  /*private val archiveModel: ArchiveModel by Delegates.lazy {
-        ArchiveModel(getActivity().getApplicationContext())
-    }*/
+    /*private val archiveModel: ArchiveModel by Delegates.lazy {
+          ArchiveModel(getActivity().getApplicationContext())
+      }*/
 
     private val list: RecyclerView by Delegates.lazy {
         getView().findViewById(R.id.list) as RecyclerView
     }
 
-    private val viewFlipper : ViewFlipper by Delegates.lazy {
+    private val viewFlipper: ViewFlipper by Delegates.lazy {
         getView().findViewById(R.id.viewFlipper) as ViewFlipper
     }
 
@@ -78,7 +77,7 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
     }
 
     override fun showLoading(loading: Boolean) {
-        viewFlipper.setDisplayedChild(if(loading) LOADING else LIST)
+        viewFlipper.setDisplayedChild(if (loading) LOADING else LIST)
     }
 
     override fun showError(e: Throwable?) {
@@ -116,8 +115,8 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
         presenter.loadArchives(event.project)
     }
 
-/*    private fun generateDownloadURL(distribution: CharSequence, version: CharSequence): Uri {
-        val uri = archiveModel.getArchive(distribution, version)
-        return Uri.parse(uri?.getUri())
-    }*/
+    /*    private fun generateDownloadURL(distribution: CharSequence, version: CharSequence): Uri {
+            val uri = archiveModel.getArchive(distribution, version)
+            return Uri.parse(uri?.getUri())
+        }*/
 }

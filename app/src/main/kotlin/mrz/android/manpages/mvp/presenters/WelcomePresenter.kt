@@ -1,9 +1,9 @@
-package mrz.android.manpages.presenter
+package mrz.android.manpages.mvp.presenters
 
 import com.hannesdorfmann.mosby.mvp.MvpPresenter
-import mrz.android.manpages.entities.Archive
-import mrz.android.manpages.entities.Project
-import mrz.android.manpages.rx.NetworkAPI
+import mrz.android.manpages.model.entities.Archive
+import mrz.android.manpages.model.entities.Project
+import mrz.android.manpages.model.rx.NetworkAPI
 import mrz.android.manpages.view.WelcomeView
 import rx.Observer
 import rx.android.schedulers.AndroidSchedulers

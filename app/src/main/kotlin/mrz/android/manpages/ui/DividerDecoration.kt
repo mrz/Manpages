@@ -1,7 +1,6 @@
-package mrz.android.manpages.view
+package mrz.android.manpages.ui
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable

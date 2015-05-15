@@ -1,4 +1,4 @@
-package mrz.android.manpages.entities;
+package mrz.android.manpages.model.entities;
 
 import io.realm.RealmObject;
 

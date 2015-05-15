@@ -1,4 +1,4 @@
-package mrz.android.manpages.view
+package mrz.android.manpages.ui.fragments
 
 import android.app.Activity
 import android.content.res.Configuration
@@ -8,8 +8,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBar
-import android.support.v7.app.ActionBarActivity
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -231,7 +231,7 @@ public class NavigationDrawerFragment : Fragment() {
     }
 
     private fun getActionBar(): ActionBar {
-        return (getActivity() as ActionBarActivity).getSupportActionBar()
+        return (getActivity() as AppCompatActivity).getSupportActionBar()
     }
 
     /**

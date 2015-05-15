@@ -8,8 +8,8 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import mrz.android.manpages.R
-import mrz.android.manpages.entities.Archive
-import mrz.android.manpages.entities.Project
+import mrz.android.manpages.model.entities.Archive
+import mrz.android.manpages.model.entities.Project
 import java.util.ArrayList
 
 public abstract class ListAdapter<T>() : RecyclerView.Adapter<ItemHolder<T>>() {

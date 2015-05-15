@@ -1,4 +1,4 @@
-package mrz.android.manpages.entities;
+package mrz.android.manpages.model.entities;
 
 import com.google.gson.Gson;
 
