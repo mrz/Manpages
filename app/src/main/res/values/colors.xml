@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#03a9f4</color>  <!--Material light blue, tint 500-->
+    <color name="primary_dark">#0288d1</color> <!--Material light blue, tint 700-->
+    <color name="secondary">#f44336</color> <!--Material red-->
+</resources>
