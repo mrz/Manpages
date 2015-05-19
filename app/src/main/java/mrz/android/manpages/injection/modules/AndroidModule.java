@@ -39,6 +39,9 @@ public class AndroidModule {
 
     @Provides
     @Singleton
+
+    @Provides
+    @Singleton
     Picasso providePicasso() {
         return new Picasso.Builder(mApplication)
                 .listener(new Picasso.Listener() {
