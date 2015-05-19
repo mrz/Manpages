@@ -8,4 +8,15 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
 
     <dimen name="card_insets">8dp</dimen>
+
+    <dimen name="list_tile_height">48dp</dimen>
+    <dimen name="list_left_margin">16dp</dimen>
+    <dimen name="list_icon_left_padding">16dp</dimen>
+    <dimen name="list_icon_height">40dp</dimen>
+    <dimen name="list_icon_width">40dp</dimen>
+    <dimen name="list_text_size">16sp</dimen>
+    <dimen name="list_text_left_margin">72dp</dimen>
+    <dimen name="list_text_right_margin">16dp</dimen>
+    <dimen name="list_top_padding">16dp</dimen>
+    <dimen name="list_bottom_padding">20dp</dimen>
 </resources>

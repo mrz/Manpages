@@ -9,7 +9,7 @@ import android.view.View
 import mrz.android.manpages.R
 
 /**
- * ItemDecoration implementation that applies and inset margin
+ * ItemDecoration implementation that applies an inset margin
  * around each child of the RecyclerView. It also draws item dividers
  * that are expected from a vertical list implementation, such as
  * ListView.
@@ -17,18 +17,12 @@ import mrz.android.manpages.R
  */
 public open class DividerDecoration(context: Context) : RecyclerView.ItemDecoration() {
 
-    companion object {
-        private val ATTRS = intArray(android.R.attr.listDivider)
-    }
-
     private val mDivider: Drawable
 
     private val mInsets: Int
 
     init {
-        val a = context.obtainStyledAttributes(ATTRS)
-        mDivider = a.getDrawable(0)
-        a.recycle()
+        mDivider = context.getDrawable(R.drawable.faded_list_divider)
         mInsets = context.getResources().getDimensionPixelSize(R.dimen.card_insets)
     }
 

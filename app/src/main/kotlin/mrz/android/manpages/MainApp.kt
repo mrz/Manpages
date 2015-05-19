@@ -14,7 +14,7 @@ public class MainApp : BaseApplication() {
     }
 
     override fun onCreate() {
-        super.onCreate()
+        super<BaseApplication>.onCreate()
 
         graph = createApplicationComponent()
         graph.inject(this)

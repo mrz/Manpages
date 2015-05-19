@@ -1,7 +1,9 @@
 {
     "Projects" : [
-        { "name" : "Linux" },
-        { "name" : "FreeBSD" }
+        { "name" : "FreeBSD",
+          "logo" : "https://upload.wikimedia.org/wikipedia/mk/d/dd/FreeBSD-logo_no_text.png" },
+        { "name" : "Linux",
+          "logo" : "https://www.kernel.org/theme/images/logos/tux.png" }
     ],
     "Linux" : [
         { "version"    : "3.70",

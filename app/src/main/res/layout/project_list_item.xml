@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal">
+
+    <ImageView android:layout_width="@dimen/list_icon_width"
+               android:layout_height="@dimen/list_icon_height"
+               android:id="@+id/logo"
+               android:contentDescription="@string/list_avatar_content_description"
+               android:layout_marginLeft="@dimen/list_icon_left_padding"/>
+
+    <TextView
+            android:id="@+id/project"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_tile_height"
+            android:gravity="center_vertical"
+            android:background="?android:attr/selectableItemBackground"
+            android:textSize="@dimen/list_text_size"
+            android:typeface="sans"
+            android:layout_marginLeft="@dimen/list_text_left_margin"
+            android:layout_marginRight="@dimen/list_text_right_margin"
+            tools:text="Project"/>
+</RelativeLayout>

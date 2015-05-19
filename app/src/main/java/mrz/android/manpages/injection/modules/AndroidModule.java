@@ -1,7 +1,9 @@
 package mrz.android.manpages.injection.modules;
 
 import android.content.Context;
-import android.location.LocationManager;
+import android.net.Uri;
+
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
 
@@ -9,6 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 import mrz.android.manpages.BaseApplication;
 import mrz.android.manpages.ForApplication;
+import timber.log.Timber;
 
 /**
  * A module for Android-specific dependencies which require a {@link android.content.Context} or
@@ -17,10 +20,10 @@ import mrz.android.manpages.ForApplication;
 @Module
 public class AndroidModule {
 
-    private final BaseApplication application;
+    private final BaseApplication mApplication;
 
     public AndroidModule(BaseApplication application) {
-        this.application = application;
+        mApplication = application;
     }
 
     /**
@@ -31,13 +34,20 @@ public class AndroidModule {
     @Singleton
     @ForApplication
     Context provideApplicationContext() {
-        return application;
+        return mApplication;
     }
 
     @Provides
     @Singleton
-    LocationManager provideLocationManager() {
-        return (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
+    Picasso providePicasso() {
+        return new Picasso.Builder(mApplication)
+                .listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        Timber.e(exception, "Failed to load image: %s", uri);
+                    }
+                })
+                .build();
     }
 }
 

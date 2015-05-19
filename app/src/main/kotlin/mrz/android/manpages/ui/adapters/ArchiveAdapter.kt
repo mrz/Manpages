@@ -11,7 +11,7 @@ public class ArchiveAdapter() : ListAdapter<Archive>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ItemHolder<Archive>? {
         val inflater = LayoutInflater.from(parent?.getContext())
-        val root = inflater.inflate(R.layout.list_item, parent, false)
+        val root = inflater.inflate(R.layout.archive_list_item, parent, false)
         return ArchiveHolder(root, this)
     }
 }
