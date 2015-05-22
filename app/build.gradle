@@ -75,10 +75,8 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     // Mosby
-    compile 'com.hannesdorfmann.mosby:core:1.0.0'
-    compile 'com.hannesdorfmann.mosby:mvp:1.0.0'
-    compile 'com.hannesdorfmann.mosby:viewstate:1.0.0'
-    compile 'com.hannesdorfmann.mosby:rx:1.0.0'
+    compile 'com.hannesdorfmann.mosby:core:1.1.0'
+    compile 'com.hannesdorfmann.mosby:mvp:1.1.0'
 
     //DI dependencies
     compile 'com.google.dagger:dagger:2.0'

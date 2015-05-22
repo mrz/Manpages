@@ -20,7 +20,7 @@ import mrz.android.manpages.view.adapter.ArchiveAdapter
 import mrz.android.manpages.view.adapter.ProjectAdapter
 import kotlin.properties.Delegates
 
-class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
+class WelcomeFragment() : MvpFragment<WelcomeView, WelcomePresenter>(), WelcomeView {
 
     // ViewFlipper contants
     private val LOADING = 0
@@ -57,14 +57,14 @@ class WelcomeFragment() : MvpFragment<WelcomePresenter>(), WelcomeView {
 
         projectAdapter.setOnItemClickListener(object : AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
-                EventBus.getDefault().post(ProjectSelectedEvent(projectAdapter.getItem(position)?.getName()!!))
+                EventBus.getDefault().post(ProjectSelectedEvent(projectAdapter.getItem(position).getName()!!))
             }
         })
 
         presenter.loadProjects()
     }
 
-    override fun createPresenter(): WelcomePresenter? {
+    override public fun createPresenter(): WelcomePresenter? {
         return WelcomePresenter()
     }
 
