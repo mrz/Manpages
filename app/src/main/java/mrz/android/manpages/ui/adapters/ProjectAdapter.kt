@@ -10,14 +10,13 @@ import com.squareup.picasso.Picasso
 import mrz.android.manpages.MainApp
 import mrz.android.manpages.R
 import mrz.android.manpages.model.entities.Project
-import mrz.android.manpages.ui.RoundImageTransformation
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 public class ProjectAdapter : ListAdapter<Project>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ItemHolder<Project>? {
-        val inflater = LayoutInflater.from(parent?.getContext())
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder<Project>? {
+        val inflater = LayoutInflater.from(parent.getContext())
         val root = inflater.inflate(R.layout.project_list_item, parent, false)
         return ProjectHolder(root, this)
     }

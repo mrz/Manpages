@@ -27,10 +27,6 @@ android {
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
     }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-
     buildTypes {
         release {
             minifyEnabled false
