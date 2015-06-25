@@ -35,7 +35,22 @@
           "filename"   : "man-pages-3.78.tar.gz" },
         { "version"    : "3.79",
           "uri"        : "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.79.tar.gz",
-          "filename"   : "man-pages-3.79.tar.gz" }
+          "filename"   : "man-pages-3.79.tar.gz" },
+        { "version"    : "3.80",
+          "uri"        : "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.80.tar.gz",
+          "filename"   : "man-pages-3.80.tar.gz" },
+        { "version"    : "3.81",
+          "uri"        : "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.81.tar.gz",
+          "filename"   : "man-pages-3.81.tar.gz" },
+        { "version"    : "3.82",
+          "uri"        : "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.82.tar.gz",
+          "filename"   : "man-pages-3.82.tar.gz" },
+        { "version"    : "3.83",
+          "uri"        : "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-3.83.tar.gz",
+          "filename"   : "man-pages-3.83.tar.gz" },
+        { "version"    : "4.00",
+          "uri"        : "https://www.kernel.org/pub/linux/docs/man-pages/man-pages-4.00.tar.gz",
+          "filename"   : "man-pages-4.00.tar.gz" }
     ],
     "FreeBSD" : [
         { "version"    : "9.0-RELEASE",
